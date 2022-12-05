@@ -16,10 +16,10 @@ function Viewing(props) {
   } 
 
   const getResults = () => {
-    Axios.post(`${props.host}:3002/get_results_survey8`, {
+    Axios.post(`${props.host}:3002/get_results_survey`, {
       survey_id: surveyid
     }).then((response) => {
-      console.log(`Response`)
+      console.log(`Response get_results_survey: ${Object.values(response.data)}`)
     })
   }
 
@@ -51,14 +51,14 @@ function Viewing(props) {
   }
 
   const showResults = () => {
-    
+    getResults();
   }
 
+  // getAllSurveys();
   return (
       <div className='viewing'>
         <table className='table' border="1">{createSurveyTable()}</table>
-        <hr></hr>
-        <body>{surveyid}</body>
+        <>{`surveyid ${surveyid}\nuserid ${props.userid}`}</>
         {surveyid != 0 && showResults()}
       </div>
   )

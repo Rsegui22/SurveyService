@@ -119,7 +119,7 @@ app.post('/get_surveys', (req, res) => {
 /************************** Get Surveys User **************************/
 app.post('/get_surveys_user', (req, res) => {
     // format new user data & build query
-    const user_id = req.body.userid;
+    const user_id = req.body.user_id;
     const query = `
         select * from Surveys where UserID = ${user_id};
     `;
@@ -127,8 +127,9 @@ app.post('/get_surveys_user', (req, res) => {
     db.query(query, (err, out) => {
         if (err) {
             console.log(err);
+        } else {
+            console.log("surveys found");    
         }
-        console.log("surveys found");
         res.send(out);
     });
 });
@@ -176,7 +177,7 @@ app.post('/get_results_survey', (req, res) => {
           join Responses r
             on q.QuestionID = r.QuestionID
          where q.SurveyID = ${survey_id}
-         order by QuestionID
+         order by q.QuestionID
         ;
     `;
     // execute sql
@@ -184,7 +185,7 @@ app.post('/get_results_survey', (req, res) => {
         if (err) {
             console.log(err);
         }
-        console.log("surveys found");
+        console.log("responses gotten");
         res.send(out);
     });
 });
